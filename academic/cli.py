@@ -188,6 +188,7 @@ def parse_bibtex_entry(entry, pub_dir="publication", featured=False, overwrite=F
     elif "editor" in entry:
         authors = entry["editor"]
     if authors:
+        authors = authors.replace("~", " ")
         authors = clean_bibtex_authors([i.strip() for i in authors.replace("\n", " ").split(" and ")])
         frontmatter.append(f"authors: [{', '.join(authors)}]")
 
@@ -198,7 +199,7 @@ def parse_bibtex_entry(entry, pub_dir="publication", featured=False, overwrite=F
     else:
         frontmatter.append('abstract: ""')
 
-    frontmatter.append(f"featured: {str(featured).lower()}")
+    #frontmatter.append(f"featured: {str(featured).lower()}")
 
     # Publication name.
     if "booktitle" in entry:
@@ -218,6 +219,21 @@ def parse_bibtex_entry(entry, pub_dir="publication", featured=False, overwrite=F
 
     if "doi" in entry:
         frontmatter.append(f'doi: "{entry["doi"]}"')
+
+    if "eprint" in entry:
+        frontmatter.append(f'url_preprint: https://arxiv.org/abs/{entry["eprint"]}')
+
+    if "pdf" in entry:
+        frontmatter.append(f'url_pdf: {entry["pdf"]}')
+
+    if "poster" in entry:
+        frontmatter.append(f'url_poster: {entry["poster"]}')
+
+    if "features" in entry:
+        frontmatter.append(f'featured: {entry["featured"]}')
+
+    if "projects" in entry:
+        frontmatter.append(f'projects: [{entry["projects"]}]')
 
     frontmatter.append("---\n\n")
 
