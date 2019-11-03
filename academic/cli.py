@@ -229,7 +229,7 @@ def parse_bibtex_entry(entry, pub_dir="publication", featured=False, overwrite=F
     if "poster" in entry:
         frontmatter.append(f'url_poster: {entry["poster"]}')
 
-    if "features" in entry:
+    if "featured" in entry:
         frontmatter.append(f'featured: {entry["featured"]}')
 
     if "projects" in entry:
